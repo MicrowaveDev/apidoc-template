@@ -44,7 +44,11 @@
         {{/if}}
       {{else}}
         <li class="{{#if hidden}}hide {{/if}}" data-group="{{group}}" data-name="{{name}}" data-version="{{version}}">
-          <a href="#api-{{group}}-{{name}}" title="{{url}}" data-group="show-api-{{group}}" data-name="show-api-{{group}}-{{name}}" class="nav-list-item show-api api-{{group}}-{{name}}-init">{{title}}<div class="nav-list-url-item hide">{{url}}</div></a>
+          <a href="#api-{{group}}-{{name}}" title="{{url}}" data-group="show-api-{{group}}" data-name="show-api-{{group}}-{{name}}" class="nav-list-item show-api api-{{group}}-{{name}}-init">
+            <span class="nav-list-title">{{title}}</span>
+            {{#if type}}<span class="nav-method meth-{{toLowerCase type}}">{{type}}</span>{{/if}}
+            <span class="nav-list-url-item">{{url}}</span>
+          </a>
         </li>
       {{/if}}
     {{/if}}
@@ -123,25 +127,25 @@
 
 <script id="template-article" type="text/x-handlebars-template">
   <article id="api-{{article.group}}-{{article.name}}-{{article.version}}" {{#if hidden}}class="hide"{{/if}} data-group="{{article.group}}" data-name="{{article.name}}" data-version="{{article.version}}">
-    <div class="pull-left">
-      <h1><span class="color-primary">{{underscoreToSpace article.groupTitle}}</span>{{#if article.title}} <span class="text-muted">|</span> {{article.title}}{{/if}}</h1>
-    </div>
-    {{#if template.withCompare}}
-    <div class="pull-right">
-      <div class="btn-group">
+    <div class="article-heading">
+      <div>
+        <div class="article-eyebrow">{{underscoreToSpace article.groupTitle}}</div>
+        <h1>{{article.title}}</h1>
+      </div>
+      {{#if template.withCompare}}
+      <div class="btn-group article-version">
         <button class="version btn btn-default dropdown-toggle" data-toggle="dropdown">
           <strong>{{article.version}}</strong>&nbsp;<span class="caret"></span>
         </button>
         <ul class="versions dropdown-menu open-left">
           <li class="disabled"><a href="#">{{__ "compare changes to:"}}</a></li>
-        {{#each versions}}
-          <li class="version"><a href="#">{{this}}</a></li>
-        {{/each}}
+          {{#each versions}}
+            <li class="version"><a href="#">{{this}}</a></li>
+          {{/each}}
         </ul>
       </div>
+      {{/if}}
     </div>
-    {{/if}}
-    <div class="clearfix"></div>
 
     {{#if article.author}}<h4 class="muted">Authored by: {{article.author}}</h4>{{/if}}
 
@@ -154,13 +158,15 @@
     {{#if article.description}}
       <p>{{{nl2br article.description}}}</p>
     {{/if}}
-    <span class="method meth-{{toLowerCase article.type}}">{{article.type}}</span>
-    <pre
-      data-type="{{toLowerCase article.type}}"
-      data-prismjs-copy="{{__ "Copy"}}"
-      data-prismjs-copy-error="{{__ "Press Ctrl+C to copy"}}"
-      data-prismjs-copy-success="{{__ "copied!"}}"
-    ><code class="language-http">{{article.url}}</code></pre>
+    <div class="endpoint-line">
+      <span class="method meth-{{toLowerCase article.type}}">{{article.type}}</span>
+      <pre
+        data-type="{{toLowerCase article.type}}"
+        data-prismjs-copy="{{__ "Copy"}}"
+        data-prismjs-copy-error="{{__ "Press Ctrl+C to copy"}}"
+        data-prismjs-copy-success="{{__ "copied!"}}"
+      ><code class="language-http">{{article.url}}</code></pre>
+    </div>
 
     {{#if article.permission}}
       <p>
