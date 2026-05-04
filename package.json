@@ -1,0 +1,34 @@
+{
+  "name": "geesome-apidoc-template",
+  "version": "1.1.0",
+  "description": "Modern apiDoc template for GeeSome API documentation.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MicrowaveDev/apidoc-template.git"
+  },
+  "files": [
+    "template/"
+  ],
+  "scripts": {
+    "smoke": "rm -rf /tmp/geesome-apidoc-template-smoke && apidoc -i examples -f .route.js -o /tmp/geesome-apidoc-template-smoke -t template && test -s /tmp/geesome-apidoc-template-smoke/index.html && test -s /tmp/geesome-apidoc-template-smoke/assets/main.bundle.js"
+  },
+  "peerDependencies": {
+    "apidoc": "^1.2.0"
+  },
+  "devDependencies": {
+    "apidoc": "^1.2.0"
+  },
+  "dependencies": {
+    "bootstrap": "3.4.1",
+    "diff-match-patch": "^1.0.5",
+    "esbuild-loader": "^2.21.0",
+    "expose-loader": "^4.1.0",
+    "handlebars": "^4.7.9",
+    "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
+    "prismjs": "^1.30.0",
+    "semver": "^7.5.0",
+    "webpack": "^5.106.2"
+  }
+}
